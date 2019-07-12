@@ -1,6 +1,7 @@
 package setting
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -45,6 +46,7 @@ func LoadServer() {
 	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
 
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
+	fmt.Println("server lision on:", HTTPPort)
 	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
 	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 }

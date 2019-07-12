@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
+	"gsgo/pkg/setting"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	"gin-blog/pkg/setting"
 )
 
 func main() {

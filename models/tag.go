@@ -20,6 +20,10 @@ func GetTags(pageNum int, pageSize int, maps interface{}) (tags []Tag) {
 
 	return
 }
+func GetOneTags(maps interface{}) (tag Tag) {
+	db.Where(maps).First(&tag)
+	return
+}
 
 func GetTagTotal(maps interface{}) (count int) {
 	db.Model(&Tag{}).Where(maps).Count(&count)

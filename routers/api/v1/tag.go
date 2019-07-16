@@ -67,10 +67,14 @@ func AddTag(c *gin.Context) {
 	valid.Range(tag.State, 0, 1, "state").Message("状态只允许0或1")
 
 	code := e.INVALID_PARAMS
+	data := make(map[string]interface{})
 	if !valid.HasErrors() {
 		if !models.ExistTagByName(tag.Name) {
 			code = e.SUCCESS
 			models.AddTag(tag.Name, tag.State, "1")
+			maps := make(map[string]interface{})
+			maps["name"] = tag.Name
+			data["tag"] = models.GetOneTags(maps)
 		} else {
 			code = e.ERROR_EXIST_TAG
 		}
@@ -79,7 +83,7 @@ func AddTag(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
-		"data": make(map[string]string),
+		"data": data,
 	})
 }
 
@@ -91,7 +95,7 @@ func AddTag(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param id path int true "tag ID"
-// @params body body v1.tagCreate true "修改"
+// @param body body v1.tagCreate true "修改"
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
 // @Router /tags/{id} [put]
 func EditTag(c *gin.Context) {
@@ -125,11 +129,10 @@ func EditTag(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),
-		"data": make(map[string]string),
 	})
 }
 
-// GetTagById id
+// GetTagByID id
 // @Tags  标签
 // @Summary get a tag
 // @Description get tag by ID
@@ -139,10 +142,30 @@ func EditTag(c *gin.Context) {
 // @Param id path int true "tag ID"
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
 // @Router /tags/{id} [get]
-func GetTagById(c *gin.Context) {
-
+func GetTagByID(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	data := make(map[string]interface{})
+	maps := make(map[string]interface{})
+	code := e.SUCCESS
+	if models.ExistTagByID(id) {
+		maps["ID"] = id
+		data["tag"] = models.GetOneTags(maps)
+	} else {
+		code = e.ERROR_NOT_EXIST_TAG
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
 }
 
-func DeleteTag(c *gin.Context) {
-
+// DelTagByID id
+func DelTagByID(c *gin.Context) {
+	code := e.SUCCESS
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": make(map[string]string),
+	})
 }

@@ -103,6 +103,13 @@ paths:
         name: id
         required: true
         type: integer
+      - description: 修改
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1.tagCreate'
+          type: object
       produces:
       - application/json
       responses:

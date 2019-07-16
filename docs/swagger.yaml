@@ -1,0 +1,121 @@
+basePath: /api/v1
+definitions:
+  v1.tagCreate:
+    properties:
+      name:
+        example: account name
+        type: string
+      state:
+        example: 0
+        type: integer
+    type: object
+host: '{{.Host}}'
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API gsgo
+  version: "2.0"
+paths:
+  /tags:
+    post:
+      parameters:
+      - description: 新建
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1.tagCreate'
+          type: object
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: AddTag
+      tags:
+      - 标签
+  /tags/:
+    get:
+      consumes:
+      - application/json
+      description: get tags list
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            type: string
+      summary: get tags list
+      tags:
+      - 标签
+  /tags/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get tag by ID
+      operationId: tagId
+      parameters:
+      - description: tag ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: get a tag
+      tags:
+      - 标签
+    put:
+      consumes:
+      - application/json
+      description: get tag by ID
+      operationId: tagId
+      parameters:
+      - description: tag ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: get a tag
+      tags:
+      - 标签
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -3,7 +3,9 @@ package routers
 import (
 	"github.com/gin-gonic/gin"
 
+	"gsgo/middleware/jwt"
 	"gsgo/pkg/setting"
+	api "gsgo/routers/api"
 	v1 "gsgo/routers/api/v1"
 )
 
@@ -22,7 +24,9 @@ func InitRouter() *gin.Engine {
 			"message": "test",
 		})
 	})
+	r.POST("/api/v1/auth", api.GetAuth)
 	apiV1 := r.Group("/api/v1")
+	apiV1.Use(jwt.JWT())
 	{
 		//获取标签列表
 		apiV1.GET("/tags", v1.GetTags)

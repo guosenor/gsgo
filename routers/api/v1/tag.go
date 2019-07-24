@@ -53,6 +53,7 @@ type tagCreate struct {
 // AddTag tag
 // @Summary AddTag
 // @Tags  标签
+// @Security ApiKeyAuth
 // @Param body body v1.tagCreate true "新建"
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
 // @Router /tags [post]
@@ -90,6 +91,7 @@ func AddTag(c *gin.Context) {
 // EditTag byId
 // @Tags  标签
 // @Summary get a tag
+// @Security ApiKeyAuth
 // @Description get tag by ID
 // @ID tagId
 // @Accept  json
@@ -135,6 +137,7 @@ func EditTag(c *gin.Context) {
 // GetTagByID id
 // @Tags  标签
 // @Summary get a tag
+// @Security ApiKeyAuth
 // @Description get tag by ID
 // @ID tagId
 // @Accept  json

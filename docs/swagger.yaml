@@ -1,5 +1,12 @@
 basePath: /api/v1
 definitions:
+  api.auth:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   v1.tagCreate:
     properties:
       name:
@@ -21,8 +28,26 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
   title: Swagger Example API gsgo
-  version: "2.0"
+  version: "1.0"
 paths:
+  /auth:
+    post:
+      parameters:
+      - description: 新建
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.auth'
+          type: object
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: login
+      tags:
+      - Auth
   /tags:
     post:
       parameters:
@@ -38,6 +63,8 @@ paths:
           description: '{"code":200,"data":{},"msg":"ok"}'
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: AddTag
       tags:
       - 标签
@@ -89,6 +116,8 @@ paths:
           description: '{"code":200,"data":{},"msg":"ok"}'
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: get a tag
       tags:
       - 标签
@@ -117,6 +146,8 @@ paths:
           description: '{"code":200,"data":{},"msg":"ok"}'
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: get a tag
       tags:
       - 标签

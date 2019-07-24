@@ -13,7 +13,7 @@ import (
 )
 
 // @title Swagger Example API gsgo
-// @version 2.0
+// @version 1.0
 // @description This is a sample server Petstore server.
 // @termsOfService http://swagger.io/terms/
 
@@ -27,7 +27,6 @@ import (
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
-
 // @BasePath /api/v1
 
 func main() {

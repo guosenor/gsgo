@@ -7,6 +7,7 @@ import (
 	"gsgo/pkg/setting"
 )
 
+// GetPage des
 func GetPage(c *gin.Context) int {
 	result := 0
 	page, _ := com.StrTo(c.Query("page")).Int()

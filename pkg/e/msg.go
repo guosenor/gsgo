@@ -1,5 +1,6 @@
 package e
 
+// MsgFlags des
 var MsgFlags = map[int]string{
 	SUCCESS:                        "ok",
 	ERROR:                          "fail",
@@ -13,6 +14,7 @@ var MsgFlags = map[int]string{
 	ERROR_AUTH:                     "Token错误",
 }
 
+// GetMsg des
 func GetMsg(code int) string {
 	msg, ok := MsgFlags[code]
 	if ok {

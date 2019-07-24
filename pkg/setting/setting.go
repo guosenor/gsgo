@@ -9,15 +9,19 @@ import (
 )
 
 var (
+	// Cfg des
 	Cfg *ini.File
-
+	// RunMode des
 	RunMode string
-
-	HTTPPort     int
-	ReadTimeout  time.Duration
+	// HTTPPort http server listen on this port
+	HTTPPort int
+	// ReadTimeout read timeout
+	ReadTimeout time.Duration
+	// WriteTimeout des
 	WriteTimeout time.Duration
-
-	PageSize  int
+	// PageSize des
+	PageSize int
+	// JwtSecret des
 	JwtSecret string
 )
 
@@ -33,10 +37,12 @@ func init() {
 	LoadApp()
 }
 
+// LoadBase des
 func LoadBase() {
 	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
 }
 
+// LoadServer des
 func LoadServer() {
 	sec, err := Cfg.GetSection("server")
 	if err != nil {
@@ -51,6 +57,7 @@ func LoadServer() {
 	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 }
 
+// LoadApp des
 func LoadApp() {
 	sec, err := Cfg.GetSection("app")
 	if err != nil {

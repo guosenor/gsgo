@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 
+	"gsgo/pkg/setting"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-
-	"gsgo/pkg/setting"
 )
 
 var db *gorm.DB

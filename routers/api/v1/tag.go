@@ -21,7 +21,8 @@ import (
 // @Param name query string false "name"
 // @Param page query int true "page"
 // @Produce  json
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
 // @Header 200 {string} Token "qwerty"
 // @Router /tags/ [get]
 func GetTags(c *gin.Context) {
@@ -52,10 +53,12 @@ type tagCreate struct {
 
 // AddTag tag
 // @Summary AddTag
+// @Produce  json
 // @Tags  标签
 // @Security ApiKeyAuth
 // @Param body body v1.tagCreate true "新建"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
 // @Router /tags [post]
 func AddTag(c *gin.Context) {
 	var tag tagCreate
@@ -72,7 +75,7 @@ func AddTag(c *gin.Context) {
 	if !valid.HasErrors() {
 		if !models.ExistTagByName(tag.Name) {
 			code = e.SUCCESS
-			models.AddTag(tag.Name, tag.State, "1")
+			models.AddTag(tag.Name, tag.State, 1)
 			maps := make(map[string]interface{})
 			maps["name"] = tag.Name
 			data["tag"] = models.GetOneTags(maps)
@@ -98,7 +101,8 @@ func AddTag(c *gin.Context) {
 // @Produce  json
 // @Param id path int true "tag ID"
 // @param body body v1.tagCreate true "修改"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
 // @Router /tags/{id} [put]
 func EditTag(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
@@ -136,14 +140,15 @@ func EditTag(c *gin.Context) {
 
 // GetTagByID id
 // @Tags  标签
-// @Summary get a tag
+// @Summary put a tag
 // @Security ApiKeyAuth
-// @Description get tag by ID
+// @Description put tag by ID
 // @ID tagId
 // @Accept  json
 // @Produce  json
 // @Param id path int true "tag ID"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
 // @Router /tags/{id} [get]
 func GetTagByID(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
@@ -164,7 +169,20 @@ func GetTagByID(c *gin.Context) {
 }
 
 // DelTagByID id
+// @Tags  标签
+// @Summary delete a tag
+// @Security ApiKeyAuth
+// @Description delete tag by ID
+// @ID tagId
+// @Accept  json
+// @Produce  json
+// @Param id path int true "tag ID"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
+// @Router /tags/{id} [delete]
 func DelTagByID(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	models.DelTagByID(id)
 	code := e.SUCCESS
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,

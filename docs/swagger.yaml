@@ -16,7 +16,6 @@ definitions:
         example: 0
         type: integer
     type: object
-host: '{{.Host}}'
 info:
   contact: {}
   description: This is a sample server Petstore server.
@@ -34,14 +33,20 @@ paths:
         schema:
           $ref: '#/definitions/api.auth'
           type: object
+      produces:
+      - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: OK
           schema:
             type: string
-      summary: login
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get Auth
       tags:
-      - Auth
+      - auth
   /tags:
     post:
       parameters:
@@ -52,9 +57,15 @@ paths:
         schema:
           $ref: '#/definitions/v1.tagCreate'
           type: object
+      produces:
+      - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
           schema:
             type: string
       security:
@@ -81,21 +92,25 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: OK
           headers:
             Token:
               description: qwerty
               type: string
           schema:
             type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
       summary: get tags list
       tags:
       - 标签
   /tags/{id}:
-    get:
+    delete:
       consumes:
       - application/json
-      description: get tag by ID
+      description: delete tag by ID
       operationId: tagId
       parameters:
       - description: tag ID
@@ -107,12 +122,43 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
           schema:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: get a tag
+      summary: delete a tag
+      tags:
+      - 标签
+    get:
+      consumes:
+      - application/json
+      description: put tag by ID
+      operationId: tagId
+      parameters:
+      - description: tag ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: put a tag
       tags:
       - 标签
     put:
@@ -137,7 +183,11 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"code":200,"data":{},"msg":"ok"}'
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
           schema:
             type: string
       security:

@@ -17,11 +17,12 @@ type auth struct {
 	Password string `valid:"Required; MaxSize(50)"`
 }
 
-// GetAuth login
-// @Summary login
-// @Tags  Auth
+// @Summary Get Auth
+// @Tags auth
+// @Produce  json
 // @Param body body api.auth true "新建"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
 // @Router /auth [post]
 func GetAuth(c *gin.Context) {
 	var user auth

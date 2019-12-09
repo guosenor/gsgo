@@ -9,11 +9,10 @@ import (
 // Tag des
 type Tag struct {
 	Model
-
-	Name       string `json:"name"`
-	CreatedBy  string `json:"created_by"`
-	ModifiedBy string `json:"modified_by"`
-	State      int    `json:"state"`
+	Name       string `gorm:"type:varchar(64);"json:"name"`
+	CreatedBy  int    `gorm:"_"created_by"`
+	ModifiedBy int    `gorm:"_"json:"modified_by"`
+	State      int    `gorm:"_"json:"state"`
 }
 
 // GetTags des
@@ -65,13 +64,19 @@ func EditTag(id int, data interface{}) bool {
 }
 
 // AddTag des
-func AddTag(name string, state int, createdBy string) bool {
+func AddTag(name string, state int, createdBy int) bool {
 	db.Create(&Tag{
 		Name:      name,
 		State:     state,
 		CreatedBy: createdBy,
 	})
 
+	return true
+}
+
+// DelTag
+func DelTagByID(id int) bool {
+	db.Where("id = ?", id).Delete(&Tag{})
 	return true
 }
 

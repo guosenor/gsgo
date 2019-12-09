@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"gsgo/pkg/setting"
-
+	"time"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -17,6 +17,7 @@ type Model struct {
 	ID         int `gorm:"primary_key" json:"id"`
 	CreatedOn  int `json:"created_on"`
 	ModifiedOn int `json:"modified_on"`
+	DeletedAt  *time.Time
 }
 
 func init() {
@@ -54,6 +55,8 @@ func init() {
 	db.SingularTable(true)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
+	db.AutoMigrate(&Auth{})
+	db.AutoMigrate(&Tag{})
 }
 
 // CloseDB des

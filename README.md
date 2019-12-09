@@ -1,5 +1,7 @@
 # gsgo
 
+    go mod tidy
+    
     go get github.com/swaggo/swag/cmd/swag
 
     swag init

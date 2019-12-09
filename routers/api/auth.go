@@ -20,7 +20,7 @@ type auth struct {
 // @Summary Get Auth
 // @Tags auth
 // @Produce  json
-// @Param body body api.auth true "新建"
+// @Param body body api.auth true "登录"
 // @Success 200 {string} string ""
 // @Failure 500 {string} string ""
 // @Router /auth [post]

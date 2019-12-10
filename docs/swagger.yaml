@@ -7,6 +7,15 @@ definitions:
       username:
         type: string
     type: object
+  v1.createArticle:
+    properties:
+      body:
+        type: string
+      channelId:
+        type: integer
+      title:
+        type: string
+    type: object
   v1.tagCreate:
     properties:
       name:
@@ -23,10 +32,62 @@ info:
   title: Swagger API for gsgo
   version: "2.0"
 paths:
-  /auth:
+  /articles:
     post:
       parameters:
       - description: 新建
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1.createArticle'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: AddArticle
+      tags:
+      - 文章
+  /articles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get article by ID
+      operationId: tagId
+      parameters:
+      - description: aticle ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: get a article by id
+      tags:
+      - 文章
+  /auth:
+    post:
+      parameters:
+      - description: 登录
         in: body
         name: body
         required: true
@@ -47,6 +108,25 @@ paths:
       summary: Get Auth
       tags:
       - auth
+  /channels:
+    get:
+      description: get all channel
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: get channels
+      tags:
+      - 频道
   /tags:
     post:
       parameters:

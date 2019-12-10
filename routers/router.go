@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	
+
 	"gsgo/middleware/jwt"
 	"gsgo/pkg/setting"
 	api "gsgo/routers/api"
@@ -11,6 +11,7 @@ import (
 
 // InitRouter init
 func InitRouter() *gin.Engine {
+	gin.DisableConsoleColor()
 	r := gin.New()
 
 	r.Use(gin.Logger())
@@ -26,6 +27,10 @@ func InitRouter() *gin.Engine {
 	})
 	r.POST("/api/v1/auth", api.GetAuth)
 	apiV1 := r.Group("/api/v1")
+	// 获取指定文章
+	apiV1.GET("/articles/:id", v1.GetArticleByID)
+	// 获取全部频道
+	apiV1.GET("/channels", v1.GetChannels)
 	apiV1.Use(jwt.JWT())
 	{
 		//获取标签列表
@@ -38,7 +43,8 @@ func InitRouter() *gin.Engine {
 		apiV1.PUT("/tags/:id", v1.EditTag)
 		//删除指定标签
 		apiV1.DELETE("/tags/:id", v1.DelTagByID)
+		// 新建文章
+		apiV1.POST("/articles", v1.AddArticle)
 	}
-
 	return r
 }

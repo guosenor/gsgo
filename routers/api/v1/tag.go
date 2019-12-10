@@ -182,7 +182,9 @@ func GetTagByID(c *gin.Context) {
 // @Router /tags/{id} [delete]
 func DelTagByID(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
-	models.DelTagByID(id)
+	if models.ExistTagByID(id) {
+		models.DelTagByID(id)
+	}
 	code := e.SUCCESS
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,

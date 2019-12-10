@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"log"
 
-	"gsgo/pkg/setting"
-	"time"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gsgo/pkg/setting"
+	"time"
 )
 
 var db *gorm.DB
 
 // Model des
 type Model struct {
-	ID         int `gorm:"primary_key" json:"id"`
-	CreatedOn  int `json:"created_on"`
-	ModifiedOn int `json:"modified_on"`
-	DeletedAt  *time.Time
+	ID         int        `gorm:"primary_key" json:"id"`
+	CreatedOn  int        `json:"createdOn"`
+	ModifiedOn int        `json:"modifiedOn"`
+	DeletedAt  *time.Time `json:"deletedAt"`
 }
 
 func init() {
@@ -55,8 +55,8 @@ func init() {
 	db.SingularTable(true)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
-	db.AutoMigrate(&Auth{})
-	db.AutoMigrate(&Tag{})
+	db.AutoMigrate(&Auth{}, &Tag{}, &Channel{}, &Article{})
+	db.LogMode(true)
 }
 
 // CloseDB des

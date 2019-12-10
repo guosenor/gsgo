@@ -9,10 +9,10 @@ import (
 // Tag des
 type Tag struct {
 	Model
-	Name       string `gorm:"type:varchar(64);"json:"name"`
-	CreatedBy  int    `gorm:"_"created_by"`
-	ModifiedBy int    `gorm:"_"json:"modified_by"`
-	State      int    `gorm:"_"json:"state"`
+	Name       string `gorm:"type:varchar(64);" json:"name"`
+	CreatedBy  int    `gorm:"_" json:"created_by"`
+	ModifiedBy int    `gorm:"_" json:"modified_by"`
+	State      int    `gorm:"_" json:"state"`
 }
 
 // GetTags des

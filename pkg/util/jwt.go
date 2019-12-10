@@ -12,18 +12,18 @@ var jwtSecret = []byte(setting.JwtSecret)
 // Claims des
 type Claims struct {
 	Username string `json:"username"`
-	Password string `json:"password"`
+	ID       int    `json:"id"`
 	jwt.StandardClaims
 }
 
 // GenerateToken des
-func GenerateToken(username, password string) (string, error) {
+func GenerateToken(username string, id int) (string, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(3 * time.Hour)
 
 	claims := Claims{
 		username,
-		password,
+		id,
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
 			Issuer:    "gsgo",

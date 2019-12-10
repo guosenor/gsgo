@@ -9,6 +9,87 @@
     },
     "basePath": "/api/v1",
     "paths": {
+        "/articles": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文章"
+                ],
+                "summary": "AddArticle",
+                "parameters": [
+                    {
+                        "description": "新建",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/v1.createArticle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/articles/{id}": {
+            "get": {
+                "description": "get article by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文章"
+                ],
+                "summary": "get a article by id",
+                "operationId": "tagId",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "aticle ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/auth": {
             "post": {
                 "produces": [
@@ -20,7 +101,7 @@
                 "summary": "Get Auth",
                 "parameters": [
                     {
-                        "description": "新建",
+                        "description": "登录",
                         "name": "body",
                         "in": "body",
                         "required": true,
@@ -30,6 +111,37 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/channels": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get all channel",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "频道"
+                ],
+                "summary": "get channels",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -285,6 +397,20 @@
                     "type": "string"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "v1.createArticle": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "channelId": {
+                    "type": "integer"
+                },
+                "title": {
                     "type": "string"
                 }
             }

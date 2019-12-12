@@ -84,6 +84,36 @@ paths:
       summary: get a article by id
       tags:
       - 文章
+    put:
+      parameters:
+      - description: aticle ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: 新建
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/v1.createArticle'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: AddArticle
+      tags:
+      - 文章
   /auth:
     post:
       parameters:

@@ -73,3 +73,7 @@ func UpdateArticleById(id int, userId int, data map[string]interface{}) (article
 	db.Model(&article).Updates(data)
 	return
 }
+func GetArticles(where map[string]interface{}) (articles []*Article) {
+	db.Where(where).Find(&articles)
+	return
+}

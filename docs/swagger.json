@@ -10,6 +10,47 @@
     "basePath": "/api/v1",
     "paths": {
         "/articles": {
+            "get": {
+                "description": "get multiple  article",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "文章"
+                ],
+                "summary": "get multiple article",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "channel ID",
+                        "name": "channelId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "createBy ID",
+                        "name": "createById",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {

@@ -125,3 +125,34 @@ func UpdateArticle(c *gin.Context) {
 		"data": data,
 	})
 }
+
+// GetArticles multiple
+// @Tags  文章
+// @Summary get multiple article
+// @Description get multiple  article
+// @Accept  json
+// @Produce  json
+// @Param channelId query int false "channel ID"
+// @Param createById query int false "createBy ID"
+// @Success 200 {string} string ""
+// @Failure 500 {string} string ""
+// @Router /articles [get]
+func GetArticles(c *gin.Context) {
+	channelId := com.StrTo(c.Query("channelId")).MustInt()
+	createById := com.StrTo(c.Query("createById")).MustInt()
+	article := article_service.Article{}
+	if channelId != 0 {
+		article.ChannelID = channelId
+	}
+	if channelId != 0 {
+		article.CreateByID = createById
+	}
+	data := make(map[string]interface{})
+	data["Articles"] = article.GetArticlesCache()
+	code := e.SUCCESS
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
+}

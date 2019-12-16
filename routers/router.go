@@ -29,6 +29,8 @@ func InitRouter() *gin.Engine {
 	apiV1 := r.Group("/api/v1")
 	// 获取指定文章
 	apiV1.GET("/articles/:id", v1.GetArticleByID)
+	// 获取
+	apiV1.GET("/articles", v1.GetArticles)
 	// 获取全部频道
 	apiV1.GET("/channels", v1.GetChannels)
 	apiV1.Use(jwt.JWT())
@@ -47,6 +49,7 @@ func InitRouter() *gin.Engine {
 		apiV1.POST("/articles", v1.AddArticle)
 		// 修改文章
 		apiV1.PUT("/articles/:id", v1.UpdateArticle)
+
 	}
 	return r
 }

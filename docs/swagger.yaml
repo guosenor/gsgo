@@ -33,6 +33,33 @@ info:
   version: "2.0"
 paths:
   /articles:
+    get:
+      consumes:
+      - application/json
+      description: get multiple  article
+      parameters:
+      - description: channel ID
+        in: query
+        name: channelId
+        type: integer
+      - description: createBy ID
+        in: query
+        name: createById
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: get multiple article
+      tags:
+      - 文章
     post:
       parameters:
       - description: 新建
